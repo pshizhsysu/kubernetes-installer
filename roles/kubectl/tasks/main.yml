@@ -1,0 +1,14 @@
+---
+- name: install kubectl
+  tags: ["create-cluster"]
+  yum:
+    name: kubectl
+    state: present
+    use_backend: yum
+
+- name: uninstall kubectl
+  tags: ["delete-cluster"]
+  yum:
+    name: kubectl
+    state: absent
+    use_backend: yum 

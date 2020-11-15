@@ -1,0 +1,24 @@
+---
+- hosts: master
+  tasks:
+  - import_role:
+      name: pre-ops
+  - import_role:
+      name: docker
+  - import_role:
+      name: kubectl
+  - import_role:
+      name: kubelet-kubeadm
+  - import_role:
+      name: master
+#  - import_role:
+#      name: plugins
+  
+- hosts: node
+  tasks:
+  - import_role:
+      name: docker
+  - import_role:
+      name: kubelet-kubeadm
+  - import_role:
+      name: node

@@ -1,0 +1,6 @@
+usage:
+
+ansible-playbook -i inventory/hosts --tags create-cluster create-cluster.yml
+ansible-playbook -i inventory/hosts --tags delete-cluster delete-cluster.yml
+ansible-playbook -i inventory/hosts --tags scale-up-node scale-up-node.yml
+ansible-playbook -i inventory/hosts --tags scale-down-node scale-down-node.yml

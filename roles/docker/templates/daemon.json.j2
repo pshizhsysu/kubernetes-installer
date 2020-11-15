@@ -1,0 +1,10 @@
+{
+    "storage-driver" : "overlay2",
+    "graph" : "{{ docker_data_dir }}",
+    "insecure-registries" : ["{{ harbor }}"],
+    "log-driver": "json-file",
+    "log-opts": {
+        "max-size": "1g"
+    }
+}
+

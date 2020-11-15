@@ -1,0 +1,12 @@
+---
+- name: install master
+  tags: ["create-cluster"]
+  become: yes
+  shell: |
+    kubeadm init --pod-network-cidr={{ pod_cidr }} --kubernetes-version=v1.17.3
+
+- name: uninstall master
+  tags: ["delete-cluster"]
+  become: yes
+  shell: |
+    kubeadm reset --force
