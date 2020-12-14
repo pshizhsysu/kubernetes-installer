@@ -1,0 +1,20 @@
+---
+- name: <停止keepalived>
+  become: yes
+  service:
+    name: keepalived
+    state: stopped
+    enabled: no
+
+- name: <卸载keepalived>
+  become: yes
+  yum:
+    name: keepalived
+    state: absent
+    use_backend: yum
+
+- name: <删除/etc/keepalived/keepalived.conf>
+  become: yes
+  file: 
+    path: /etc/keepalived/keepalived.conf
+    state: absent

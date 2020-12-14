@@ -1,0 +1,6 @@
+---
+- name: <安装calico>
+  include_tasks: calico.yml
+
+    
+  

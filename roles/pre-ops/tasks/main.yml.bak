@@ -1,7 +1,0 @@
----
-- name: "pre-operations for host"
-  tags: ["create-cluster", "scale-up-node"]
-  include_tasks: ["ops.yml"]
-  args:
-    apply:
-      tags: ["create-cluster", "scale-up-node"]

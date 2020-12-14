@@ -1,0 +1,24 @@
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+kubernetesVersion: v{{ kubernetes_version }}
+imageRepository: registry.aliyuncs.com/google_containers
+controlPlaneEndpoint: "{% if master_vip is defined %}{{ master_vip }}{% else %}{{ inventory_hostname }}{% endif %}:{{ secure_port }}"
+apiServer:
+{% if master_vip is defined %}
+  certSANs: ["{{ master_vip }}"]
+{% endif %}
+  extraArgs:
+    secure-port: "{{ secure_port }}"
+controllerManager:
+  extraArgs:
+    cluster-cidr: "{{ pod_cidr }}"
+  
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+evictionHard:
+  imagefs.available: "5%"
+  memory.available: "5%"
+  nodefs.available: "5%"
+  nodefs.inodesFree: "5%"

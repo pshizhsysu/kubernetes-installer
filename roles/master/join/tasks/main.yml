@@ -1,0 +1,4 @@
+---
+- name: <执行kubeadm join命令添加master>
+  shell: |
+    {{ kubeadm_join_master_command }} --node-name {{ inventory_hostname }}

@@ -1,0 +1,43 @@
+---
+- name: <设置sysctl参数>
+  block:
+  - name: <拷贝k8s.conf到/etc/sysctl.conf.d/>
+    become: yes
+    copy:
+      src: sysctl/k8s.conf
+      dest: /etc/sysctl.d/
+  - name: <执行sysctl --system命令>
+    become: yes
+    shell: |
+      sysctl --system
+
+- name: <关闭firewalld>
+  become: yes
+  service:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- name: <关闭selinux>
+  become: yes
+  selinux:
+    state: disabled  
+
+- name: <关闭swap>
+  become: yes
+  block:
+  - name: <执行命令swapoff -a>
+    shell: |
+      swapoff -a
+  - name: <删除/etc/fstab文件中有swap的行>
+    mount:
+      name: swap
+      fstype: swap
+      state: absent  
+
+- name: <拷贝repo文件到/etc/yum.repos.d/下>
+  become: yes
+  copy:
+    src: yum/
+    dest: /etc/yum.repos.d/
+    

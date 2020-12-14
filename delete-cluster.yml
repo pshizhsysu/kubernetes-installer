@@ -1,0 +1,14 @@
+---
+- hosts: all
+  roles:
+  - role: kubeadm-reset
+  - role: kubelet-kubeadm/uninstall
+  - role: docker/uninstall
+  - role: pre-ops/unset
+
+- hosts: master
+  roles:
+  - role: kubectl/uninstall
+  - role: keepalived/uninstall
+    when: master_vip is defined
+    

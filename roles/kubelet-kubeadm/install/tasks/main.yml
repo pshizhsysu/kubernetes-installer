@@ -1,0 +1,14 @@
+---
+- name: <安装kubelet与kubeadm>
+  yum:
+    name: ["kubelet-{{ kubernetes_version }}", "kubeadm-{{ kubernetes_version }}"]
+    state: present
+    disablerepo: "*"
+    enablerepo: "aliyun-*"
+    use_backend: yum
+
+- name: <启动kubelet>
+  service:
+    name: kubelet
+    state: started
+    enabled: yes

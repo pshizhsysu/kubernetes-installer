@@ -1,0 +1,11 @@
+{
+    "storage-driver" : "overlay2",
+    "data-root" : "{{ docker_data_dir }}",
+    "registry-mirrors": ["https://registry.docker-cn.com", "https://docker.mirrors.ustc.edu.cn"],
+    "insecure-registries" : ["{{ harbor }}"],
+    "log-driver": "json-file",
+    "log-opts": {
+        "max-size": "1g"
+    }
+}
+

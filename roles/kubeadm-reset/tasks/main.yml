@@ -1,0 +1,4 @@
+---
+- name: <执行kubeadm reset --force命令>
+  shell: |
+    kubeadm reset --force

@@ -1,0 +1,30 @@
+---
+- name: <yum安装docker>
+  become: yes
+  yum:
+    name: ["docker-ce-{{ docker_version }}"]
+    state: present
+    disablerepo: "*"
+    enablerepo: "aliyun-*"
+    use_backend: yum
+
+- name: <创建/etc/docker目录>
+  become: yes
+  file:
+    path: /etc/docker
+    state: directory
+    mode: 0755
+
+- name: <拷贝daemon.json>
+  become: yes
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    force: yes
+
+- name: <启动docker>
+  service: 
+    name: docker
+    state: started
+    enabled: yes
+

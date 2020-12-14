@@ -1,0 +1,19 @@
+- name: <停止docker>
+  become: yes
+  service:
+    name: docker
+    state: stopped
+    enabled: no
+
+- name: <删除/etc/docker/daemon.json>
+  become: yes
+  file:
+    path: /etc/docker/daemon.json
+    state: absent
+
+- name: <卸载docker>
+  become: yes
+  yum:
+    name: ["docker-ce", "docker-ce-cli"]
+    state: absent
+    use_backend: yum

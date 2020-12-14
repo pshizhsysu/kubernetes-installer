@@ -1,0 +1,7 @@
+---
+- name: <拷贝根证书>
+  become: yes
+  copy:
+    src: pki
+    dest: /etc/kubernetes/
+    force: yes

@@ -1,0 +1,14 @@
+---
+- name: <停止kubelet>
+  become: yes
+  service:
+    name: kubelet
+    state: stopped
+    enabled: no
+
+- name: <卸载kubelet与kubeadm>
+  become: yes
+  yum:
+    name: ["kubelet", "kubeadm"]
+    state: absent
+    use_backend: yum 

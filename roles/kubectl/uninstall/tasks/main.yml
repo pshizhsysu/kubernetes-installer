@@ -1,0 +1,6 @@
+- name: <卸载kubectl>
+  become: yes
+  yum:
+    name: kubectl
+    state: absent
+    use_backend: yum

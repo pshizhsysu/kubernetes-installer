@@ -1,3 +1,13 @@
+# docker
+docker_version: 19.03.12
 docker_data_dir: /dcos/data/docker
-harbor: "192.168.2.101:8021"
+
+# kubernetes
+kubernetes_version: 1.17.3
 pod_cidr: 172.26.0.0/16
+service_cluster_ip_cidr: 10.96.0.0/16
+secure_port: 6443
+
+# ha, uncomment to enable installation of keepalived
+# comment to disable installation of keepalived
+#master_vip: 192.168.2.200

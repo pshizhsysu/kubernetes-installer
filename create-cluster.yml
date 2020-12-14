@@ -1,24 +1,31 @@
 ---
+- hosts: all
+  roles:
+  - role: pre-ops/set
+  - role: docker/install
+  - role: kubelet-kubeadm/install
+
 - hosts: master
-  tasks:
-  - import_role:
-      name: pre-ops
-  - import_role:
-      name: docker
-  - import_role:
-      name: kubectl
-  - import_role:
-      name: kubelet-kubeadm
-  - import_role:
-      name: master
-#  - import_role:
-#      name: plugins
-  
+  roles:
+  - role: kubectl/install
+  - role: keepalived/install
+    when: master_vip is defined
+  - role: master/init
+    when: inventory_hostname == groups.master[0]
+  - role: master/getjoincommand
+    when: inventory_hostname == groups.master[0]
+  - role: master/join
+    vars:
+      kubeadm_join_master_command: "{{ hostvars[groups.master[0]].kubeadm_join_master_command }}" 
+    when: inventory_hostname != groups.master[0]
+    
 - hosts: node
-  tasks:
-  - import_role:
-      name: docker
-  - import_role:
-      name: kubelet-kubeadm
-  - import_role:
-      name: node
+  roles:
+  - role: node/join
+    vars:
+      kubeadm_join_node_command: "{{ hostvars[groups.master[0]].kubeadm_join_node_command }}" 
+
+- hosts: master
+  roles:
+  - role: plugins
+    when: inventory_hostname == groups.master[0]

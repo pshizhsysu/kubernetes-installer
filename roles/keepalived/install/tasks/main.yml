@@ -1,0 +1,31 @@
+---
+- name: <安装keepalived>
+  yum:
+    name: keepalived
+    state: present
+    disablerepo: "*"
+    enablerepo: "aliyun-*"
+    use_backend: yum
+
+- name: <获取网卡名>
+  shell: |
+    ip addr show to {{ inventory_hostname }} | awk -F ': ' 'NF > 1 {print $2}'
+  register: interface
+
+- name: <保存网卡名和RouterID>
+  set_fact: 
+    interface: "{{ interface.stdout }}"
+    ip_last_part: "{{ master_vip.split('.')[3] }}"
+
+- name: <拷贝配置文件keepalived.conf>
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+    force: yes
+
+- name: <启动keepalived>
+  service:
+    name: keepalived
+    state: started
+    enabled: yes
+

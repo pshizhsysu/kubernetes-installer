@@ -1,0 +1,17 @@
+---
+- hosts: master_existed
+  roles:
+  - role: master/getjoincommand
+    
+- hosts: master_to_scale
+  roles:
+  - role: pre-ops/set
+  - role: docker/install
+  - role: kubelet-kubeadm/install
+  - role: kubectl/install
+  - role: keepalived/install
+    when: master_vip is defined
+  - role: master/join
+    vars:
+      kubeadm_join_master_command: "{{ hostvars[groups.master_existed[0]].kubeadm_join_master_command }}" 
+

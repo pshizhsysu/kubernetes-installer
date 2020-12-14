@@ -1,0 +1,6 @@
+[aliyun-docker]
+name=aliyun-docker
+baseurl=http://mirrors.aliyun.com/docker-ce/linux/centos/7/x86_64/stable/
+enabled=0
+gpgcheck=0
+

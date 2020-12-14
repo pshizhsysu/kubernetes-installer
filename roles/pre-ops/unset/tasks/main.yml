@@ -1,0 +1,19 @@
+---
+#- name: <恢复sysctl参数>
+#  block:
+#  - name: <删除/etc/sysctl.d/k8s.conf文件>
+#    become: yes
+#    file:
+#      path: /etc/sysctl.d/k8s.conf
+#      state: absent
+#  - name: <执行sysctl --system命令>
+#    become: yes
+#    shell: |
+#      sysctl --system
+
+- name: <删除repo文件>
+  become: yes
+  file:
+    dest: "/etc/yum.repos.d/aliyun*"
+    state: absent
+    

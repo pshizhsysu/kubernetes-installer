@@ -1,0 +1,9 @@
+---
+- name: <安装kubectl>
+  yum:
+    name: kubectl-1.17.3
+    state: present
+    disablerepo: "*"
+    enablerepo: "aliyun-*"
+    use_backend: yum
+

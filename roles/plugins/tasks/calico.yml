@@ -1,0 +1,28 @@
+---
+- name: <获取主机网卡>
+  become: yes
+  shell: |
+    ip addr show to {{ inventory_hostname }} | awk -F ': ' 'NF > 1 {print $2}' 
+  register: interface
+
+- name: <保存主机网卡变量>
+  set_fact:
+    interface: "{{ interface.stdout }}"
+
+- name: "<创建{{ path }}/calico目录>"
+  become: yes
+  file:
+    path: "{{ path }}/calico"
+    state: directory
+    mode: 0755
+
+- name: <拷贝calico.yaml文件>
+  become: yes
+  template:
+    src: calico/calico.yaml.j2
+    dest: "{{ path }}/calico/calico.yaml"
+
+- name: <安装calico.yaml文件>
+  become: yes
+  shell: | 
+    kubectl apply -f {{ path }}/calico/calico.yaml --kubeconfig /etc/kubernetes/admin.conf

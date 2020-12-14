@@ -1,0 +1,14 @@
+---
+- hosts: master
+  roles:
+  - role: master/getjoincommand
+    
+- hosts: node
+  roles:
+  - role: pre-ops/set
+  - role: docker/install
+  - role: kubelet-kubeadm/install
+  - role: node/join
+    vars:
+      kubeadm_join_node_command: "{{ hostvars[groups.master[0]].kubeadm_join_node_command }}" 
+
