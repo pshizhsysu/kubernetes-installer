@@ -18,3 +18,4 @@ ansible-playbook -i inventory/scale-down-node scale-down-node.yml
 - 每个role中install与uninstall两个子role应改成install.yml与uninstall.yml，playbook中应使用include_role或import_role
 - kubectl没有像kubelet-kubeadm一样安装指定版本
 - 没有去掉master的污点
+- 关闭docker的docker0网桥
