@@ -19,3 +19,4 @@ ansible-playbook -i inventory/scale-down-node scale-down-node.yml
 - kubectl没有像kubelet-kubeadm一样安装指定版本
 - 没有去掉master的污点
 - 关闭docker的docker0网桥
+- 支持多种操作系统、多种cpu架构、多种版本的kubernetes、多种容器运行时
