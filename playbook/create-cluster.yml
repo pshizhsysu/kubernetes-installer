@@ -32,6 +32,8 @@
   - include_role:
       name: master
       tasks_from: join.yml
+    vars: 
+      kubeadm_join_master_command: "{{hostvars[groups.master[0].]}}"
     when: inventory_hostname != groups['master'][0]
   - include_role:
       name: plugins
@@ -42,4 +44,4 @@
   tasks:
   - include_role:
       name: node
-      tasks_from: install.yml
+      tasks_from: join.yml
