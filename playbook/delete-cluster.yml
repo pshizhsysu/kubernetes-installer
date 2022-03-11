@@ -1,0 +1,29 @@
+---
+- hosts: node
+  tasks:
+  - include_role:
+      name: node
+      tasks_from: reset.yml
+
+- hosts: master
+  tasks:
+  - include_role:
+      name: master
+      tasks_from: reset.yml
+  - include_role:
+      name: keepalived
+      tasks_from: uninstall.yml
+
+- hosts: all
+  tasks:
+  - include_role:
+      name: kubeadm-kubelet-kubectl
+      tasks_from: uninstall.yml
+  - include_role:
+      name: runtime/{{runtime}}
+      tasks_from: uninstall.yml
+  
+
+
+  
+

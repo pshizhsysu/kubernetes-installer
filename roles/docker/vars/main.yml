@@ -1,3 +1,0 @@
----
-docker_data_dir: /dcos/data/docker
-harbor: ccse.io:8021

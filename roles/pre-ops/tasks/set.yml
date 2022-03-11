@@ -1,9 +1,8 @@
 ---
-- name: set kernel arguments
-  tags: ["create-cluster", "scale-up-node"]
+- name: set kernel arguments  
   become: yes
   block:
-  - name: copy k8s.conf to /etc/sysctl.conf.d/
+  - name: copy k8s.conf to /etc/sysctl.d/
     copy:
       src: k8s.conf
       dest: /etc/sysctl.d/
@@ -12,7 +11,6 @@
       sysctl --system
 
 - name: systemctl stop and disable firewalld
-  tags: ["create-cluster", "scale-up-node"]
   become: yes
   service:
     name: firewalld
@@ -20,13 +18,11 @@
     enabled: no
 
 - name: turn off selinux
-  tags: ["create-cluster", "scale-up-node"]
   become: yes
   selinux:
     state: disabled  
 
 - name: turn off swap
-  tags: ["create-cluster", "scale-up-node"]
   become: yes
   block:
   - name: swapoff -a

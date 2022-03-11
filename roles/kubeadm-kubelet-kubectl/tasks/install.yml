@@ -1,0 +1,9 @@
+---
+- name: <安装kubeadm-kubelet-kubectl> <获取主机的操作系统>
+  command: xxx
+  register: os_distribution
+  
+- name: <安装kubeadm-kubelet-kubectl> <选择安装的操作系统>
+  block:
+  - name: <安装kubeadm-kubelet-kubectl> <选择安装的操作系统> <选择{{os_distribution.stdout}}>
+    include_tasks: {{os_distribution.stdout}}/install.yml

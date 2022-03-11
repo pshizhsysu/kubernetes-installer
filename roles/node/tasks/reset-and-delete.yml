@@ -1,0 +1,9 @@
+---
+- name: xxx
+  become: yes
+  command: kubeadm reset --force
+
+- name: xxx
+  become: yes
+  delegate_to: {{master}}
+  command: kubectl delete node {{node_name}}

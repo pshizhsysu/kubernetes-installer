@@ -1,0 +1,8 @@
+192.168.92.102 ansible_port=22 ansible_user=root ansible_ssh_pass=root
+192.168.92.104 ansible_port=22 ansible_user=root ansible_ssh_pass=root
+
+[exist]
+192.168.92.102
+
+[scaledown]
+192.168.92.104

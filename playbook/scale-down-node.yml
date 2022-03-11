@@ -1,0 +1,14 @@
+---
+- hosts: node
+  tasks:
+  - include_role:
+      name: node
+      tasks_from: reset-and-delete.yml
+      vars:
+        master: {{groups['master'][0].inventory_hostname}}
+  - include_role:
+      name: kubeadm-kubelet-kubectl
+      tasks_from: uninstall.yml
+  - include_role:
+      name: runtime/{{runtime}}
+      tasks_from: uninstall.yml

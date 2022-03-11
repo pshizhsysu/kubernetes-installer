@@ -1,0 +1,45 @@
+---
+- hosts: all
+  tasks:
+  - include_role:
+      name: pre-ops
+      tasks_from: set.yml
+  - include_role:
+      name: runtime/{{runtime}}
+      tasks_from: install.yml
+  - include_role:
+      name: kubeadm-kubelet-kubectl
+      tasks_from: install.yml
+
+- hosts: master
+  tasks:
+  - include_role:
+      name: keepalived
+      tasks_from: install-master.yml
+    when: inventory_hostname == groups['master'][0]
+  - include_role:
+      name: keepalived
+      tasks_from: install-backup.yml
+    when: inventory_hostname != groups['master'][0]
+  - include_role:
+      name: master
+      tasks_from: init.yml
+    when: inventory_hostname == groups['master'][0]
+  - include_role:
+      name: master
+      tasks_from: register-join-command.yml
+    when: inventory_hostname == groups['master'][0]
+  - include_role:
+      name: master
+      tasks_from: join.yml
+    when: inventory_hostname != groups['master'][0]
+  - include_role:
+      name: plugins
+      tasks_from: install.yml
+    when: inventory_hostname == groups['master'][0]
+  
+- hosts: node
+  tasks:
+  - include_role:
+      name: node
+      tasks_from: install.yml
