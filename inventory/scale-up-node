@@ -1,8 +1,0 @@
-192.168.92.102 ansible_port=22 ansible_user=root ansible_ssh_pass=root
-192.168.92.105 ansible_port=22 ansible_user=root ansible_ssh_pass=root
-
-[master]
-192.168.92.102
-
-[node]
-192.168.92.105

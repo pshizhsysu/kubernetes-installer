@@ -1,0 +1,2 @@
+1、如果是ipv4或双栈，则inventory文件中，使用ipv4作为inventory_hostname与ansible_host，双栈时host_var中添加ipv6字段
+2、如果是ipv6单栈，使用ipv6地址做为inventory_hostname

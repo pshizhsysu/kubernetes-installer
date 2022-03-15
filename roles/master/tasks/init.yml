@@ -1,11 +1,23 @@
 ---
-- name: 拷贝kubeadm-init.yml配置文件
+- name: <拷贝kubeadm-init-master.yml配置文件>
+  become: yes
   template:
-    src: kubeadm-init.yml.j2
+    src: "{{kubernetes_major_version}}/kubeadm-init-master.yml.j2"
     dest: /etc/kubernetes
     force: yes
 
-- name: 执行kubeadm init命令
+- name: <执行kubeadm init命令>
+  become: yes
   command: kubeadm init --config /etc/kubernetes/kubeadm-init.yml
+
+- name: <拷贝kubeconfig文件到用户目录下>
+  become: yes
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: "/home/{{ansible_user}}/.kube/config"
+    force: yes
+    group: "{{ansible_user}}"
+    owner: "{{ansible_user}}"
+    mode: 0644
 
   

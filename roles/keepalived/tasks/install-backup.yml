@@ -1,0 +1,52 @@
+---
+- name: <安装keepalived><获取keepalived相关配置信息>
+  become: yes
+  block:
+  - name: <安装keepalived><获取keepalived相关配置信息><获取VIP绑定的网卡>
+    shell: "ip addr show to {{inventory_hostname}} | awk -F ': ' 'NF > 1 {print $2}'"
+    register: interface_result
+  - name: <安装keepalived><获取keepalived相关配置信息><保存网卡信息及virtual_router_id>
+    set_fact: 
+      interface: "{{interface_result.stdout}}"
+      {% if ipv4_ipv6_dual != "ipv6" %}
+      virtual_router_id_ipv4: "{{vip_ipv4.split('.')[3]}}"
+      {% endif %}
+      {% if ipv4_ipv6_dual != "ipv4" %}
+      virtual_router_id_ipv6: 6
+      {% endif %}
+
+- name: <安装keepalived><创建目录/etc/kubernetes/keepalived>
+  become: yes
+  file:
+    path: /etc/kubernetes/keepalived
+    state: directory
+
+- name: <安装keepalived><拷贝keepalived-backup文件>
+  become: yes
+  block: 
+  - name: <安装keepalived><拷贝keepalived-backup文件><拷贝keepalived-ipv4-backup.conf>
+    when: ipv4_ipv6_dual != "ipv6"
+    template:
+      src: keepalived-ipv4-backup.conf.j2
+      dest: /etc/kubernetes/keepalived/keepalived-ipv4.conf
+      force: yes
+  - name: <安装keepalived><拷贝keepalived-backup文件><拷贝keepalived-ipv6-backup.conf>
+    when: ipv4_ipv6_dual != "ipv4"
+    template:
+      src: keepalived-ipv6-backup.conf.j2
+      dest: /etc/kubernetes/keepalived/keepalived-ipv6.conf
+      force: yes
+
+- name: <安装keepalived><拷贝keepalived.conf文件>
+  become: yes
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/kubernetes/keepalived/keepalived.conf
+    force: yes
+
+- name: <安装keepalived><拷贝keepalived的manifest文件>
+  become: yes
+  template:
+    src: keepalived.yaml.j2
+    dest: /etc/kubernetes/manifests/keepalived.yaml
+    force: yes

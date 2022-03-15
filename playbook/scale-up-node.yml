@@ -3,9 +3,10 @@
   tasks:
   - include_role:
       name: master
-      tasks_from: register-join-command.yml
+      tasks_from: register-join-vars.yml
+    when: inventory_hostname == groups.master[0]
 
-- hosts: scale
+- hosts: node
   tasks:
   - include_role:
       name: pre-ops
@@ -18,4 +19,8 @@
       tasks_from: install.yml
   - include_role:
       name: node
-      tasks_from: install.yml
+      tasks_from: join.yml
+    vars:
+      control_plane_endpoint: "{{hostvars[groups.master[0].control_plane_endpoint]}}"
+      token: "{{hostvars[groups.master[0].token]}}"
+      ca_cert_hash: "{{hostvars[groups.master[0].ca_cert_hash]}}"

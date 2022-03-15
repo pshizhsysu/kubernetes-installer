@@ -1,0 +1,54 @@
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration	
+localAPIEndpoint:
+  advertiseAddress: "{{apiserver_advertise_address}}"   
+nodeRegistration:
+  name: "{{node_name}}"
+  kubeletExtraArgs:
+    node-ip: "{{node_ip}}"
+
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+imageRepository: registry.aliyuncs.com/google_containers
+kubernetesVersion: "v{{kubernetes_version}}"
+controlPlaneEndpoint: "{% if ipv4_ipv6_dual == 'ipv4' %}{% if vip_ipv4 is defined and vip_ipv4 != '' %}{{vip_ipv4}}{% else %}{% endif %}{% elif ipv4_ipv6_dual == 'ipv6' %}{% if vip_ipv6 is defined and vip_ipv6 != '' %}{{vip_ipv6}}{% else %}{% endif %}{% elif control_plane_communication_protocol == 'ipv4' %}{% if vip_ipv4 is defined and vip_ipv4 != '' %}{{vip_ipv4}}{% else %}{% endif %}{% elif control_plane_communication_protocol == 'ipv6' %}{% if vip_ipv6 is defined and vip_ipv6 != '' %}{{vip_ipv6}}{% else %}{% endif %}{% endif %}"
+networking:
+  podSubnet: "{{pod_cidr}}"
+  serviceSubnet: "{{service_cidr}}"
+etcd:
+  local:
+    extralArgs:
+      listen-metrics-urls: "{% if ipv4_ipv6_dual == 'ipv4' %}http://0.0.0.0:2381{% else %}http://[::]:2381{% endif %}"
+apiServer:
+  certSANs: "{% set cert_sans = [] %}{% if vip_ipv4 is defined and vip_ipv4 != '' %}{{ cert_sans.append(vip_ipv4) }}{% endif %}{% if vip_ipv6 is defined and vip_ipv6 != '' %}{{ cert_sans.append(vip_ipv6) }}{% endif %}"
+  extraArgs:
+    service-cluster-ip-range: "service_cidr"
+    bind-address: "{% if ipv4_ipv6_dual == 'ipv4' %}0.0.0.0{% else %}::{% endif %}"
+    secure-port: "6443"
+scheduler:
+  extraArgs:
+    bind-address: "{% if ipv4_ipv6_dual == 'ipv4' %}0.0.0.0{% else %}::{% endif %}"
+controllerManager:
+  extraArgs:
+    bind-address: "{% if ipv4_ipv6_dual == 'ipv4' %}0.0.0.0{% else %}::{% endif %}"
+
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+evictionHard:
+  imagefs.available: 5%
+  memory.available: 5%
+  nodefs.available: 5%
+  nodefs.inodesFree: 5%
+healthzBindAddress: "{% if ipv4_ipv6_dual == 'ipv4' %}0.0.0.0{% else %}::{% endif %}"
+healthzPort: 10248
+readOnlyPort: 10255
+
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+bindAddress: "{% if ipv4_ipv6_dual == 'ipv4' %}0.0.0.0{% else %}::{% endif %}"
+clusterCIDR: "{{pod_cidr}}"
+mode: "{{kube_proxy_mode}}"

@@ -1,11 +1,5 @@
 ---
-- hosts: exist
-  tasks:
-  - include_role:
-      name: master
-      tasks_from: register-join-command.yml
-
-- hosts: scale
+- hosts: scaledown
   tasks:
   - include_role:
       name: pre-ops
@@ -22,3 +16,8 @@
   - include_role:
       name: master
       tasks_from: join.yml
+    vars:
+      control_plane_endpoint: "{{hostvars[groups.master[0].control_plane_endpoint]}}"
+      certificate_key: "{{hostvars[groups.master[0].certificate_key]}}"
+      token: "{{hostvars[groups.master[0].token]}}"
+      ca_cert_hash: "{{hostvars[groups.master[0].ca_cert_hash]}}"

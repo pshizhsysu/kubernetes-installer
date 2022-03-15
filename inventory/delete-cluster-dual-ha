@@ -1,0 +1,26 @@
+all:
+  children:
+    master:
+      hosts: 
+        192.168.92.108:
+          ansible_port: 22
+          ansible_user: root
+          ansible_password: root
+          ipv6: fd92::108
+        192.168.92.109:
+          ansible_port: 22
+          ansible_user: root
+          ansible_password: root
+          ipv6: fd92::109
+        192.168.92.110:
+          ansible_port: 22
+          ansible_user: root
+          ansible_password: root
+          ipv6: fd92::110
+    node:
+      hosts:
+        192.168.92.111:
+          ansible_port: 22
+          ansible_user: root
+          ansible_password: root
+          ipv6: fd92::111

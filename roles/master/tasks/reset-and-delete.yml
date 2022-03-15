@@ -1,0 +1,14 @@
+---
+- name: <卸载Master节点>
+  become: yes
+  command: kubeadm reset --force
+  ignore_errors: yes
+
+- name: <卸载Master节点><清理相关目录>
+  become: yes
+  command: rm -rvf /etc/cni/ /opt/cni
+  ignore_errors: yes
+
+- name: <卸载Master节点><kubectl delete node>
+  command: kubectl delete node "{{node_name}}"
+  ignore_errors: yes

@@ -1,0 +1,16 @@
+all:
+  children:
+    exist:
+      hosts: 
+        192.168.92.108:
+          ansible_port: 22
+          ansible_user: root
+          ansible_password: root
+          ipv6: fd92::108
+    scaledown:
+      hosts:
+        192.168.92.107:
+          ansible_port: 22
+          ansible_user: root
+          ansible_password: root
+          ipv6: fd92::107

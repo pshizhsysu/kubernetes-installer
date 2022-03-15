@@ -1,0 +1,16 @@
+---
+- name: <创建/etc/kubernetes/addons目录>
+  file:
+    path: /etc/kubernetes/addons
+    state: directory
+
+- name: <安装calico插件>
+  block:
+  - name: <安装calico插件><拷贝calico.yaml文件>
+    template:
+      src: "v{{kubernetes_major_version}}/calico.yaml.j2"
+      dest: /etc/kubernetes/addons
+      force: yes
+  - name: <安装calico插件><执行kubectl apply命令>
+    command: kubectl apply -f /etc/kubernetes/addons/calico.yaml --kubeconfig /etc/kubernetes/admin.conf
+  

@@ -1,0 +1,27 @@
+---
+- name: <创建certificate-key并上传证书>
+  shell: kubeadm init phase upload-certs --upload-certs --kubeconfig /etc/kubernetes/admin.conf | awk '/[a-f0-9]{64}/'
+  register: certificate_key_result
+  failed_when: certificate_key_result.rc != 0 or certificate_key_result.stdout == ''
+
+- name: <生成token>
+  command: kubeadm token create --kubeconfig /etc/kubernetes/admin.conf 
+  register: token_result
+  failed_when: token_result.rc != 0 or token_result.stdout == ''
+
+- name: <获取ca_cert_hash>
+  shell: openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
+  register: ca_cert_hash_result
+  failed_when: ca_cert_hash_result.rc != 0 or ca_cert_hash_result.stdout == ''
+
+- name: <获取control-plane-endpoint>
+  shell: grep server /etc/kubernetes/admin.conf | sed 's#.*https://##g'
+  register: control_plane_endpoint_result
+  failed_when: control_plane_endpoint_result.rc != 0 or control_plane_endpoint_result == ''
+
+- name: <set-fact以保存变量>
+  set_fact:
+    certificate_key: "{{certificate_key_result.stdout}}"
+    token: "{{token_result.stdout}}"
+    ca_cert_hash: "{{ca_cert_hash_result.stdout}}"
+    control_plane_endpoint: "{{control_plane_endpoint_result.stdout}}"

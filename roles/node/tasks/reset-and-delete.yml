@@ -1,9 +1,15 @@
 ---
-- name: xxx
+- name: <卸载Node><kubeadm reset>
   become: yes
   command: kubeadm reset --force
+  ignore_errors: yes
 
-- name: xxx
+- name: <卸载Node><删除主机相关目录>
   become: yes
-  delegate_to: {{master}}
-  command: kubectl delete node {{node_name}}
+  command: rm -rvf /etc/cni /opt/cni
+  ignore_errors: yes
+
+- name: <卸载Node><kubectl delete node>
+  delegate_to: "{{master}}"
+  command: kubectl delete node "{{node_name}}"
+  ignore_errors: yes

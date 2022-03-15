@@ -1,0 +1,15 @@
+---
+- name: <卸载keepalived><删除keepalived.yaml manifest文件>
+  become: yes
+  ignore_errors: yes
+  file:
+    path: /etc/kubernetes/manifests/keepalived.yaml
+    state: absent
+
+- name: <卸载keepalived><删除配置文件及目录>
+  become: yes
+  ignore_errors: yes
+  file:
+    path: /etc/kubernetes/keepalived
+    state: absent
+  

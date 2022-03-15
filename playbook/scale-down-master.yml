@@ -1,11 +1,9 @@
 ---
-- hosts: node
+- hosts: scaledown
   tasks:
   - include_role:
-      name: node
+      name: master
       tasks_from: reset-and-delete.yml
-    vars:
-      master: "{{groups.master[0]}}"
   - include_role:
       name: kubeadm-kubelet-kubectl
       tasks_from: uninstall.yml

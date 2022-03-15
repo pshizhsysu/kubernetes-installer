@@ -1,0 +1,38 @@
+all:
+  children:
+    master:
+      hosts: 
+        192.168.92.108:          
+          ansible_port: 22
+          ansible_user: root
+          ansible_password: root
+          ipv6: fd92::108
+        192.168.92.109:
+          ansible_port: 22
+          ansible_user: root
+          ansible_password: root
+          ipv6: fd92::109
+        192.168.92.110:
+          ansible_port: 22
+          ansible_user: root
+          ansible_password: root
+          ipv6: fd92::110
+    node:
+      hosts:
+        192.168.92.111:          
+          ansible_port: 22
+          ansible_user: root
+          ansible_password: root          
+          ipv6: fd92::111
+vars:
+  kubernetes_version: 1.23.3
+  runtime: docker
+  runtime_data_root: /data/docker
+  ipv4_ipv6_dual: dual  # ipv4 ipv6 or dual
+  control_plane_communication_protocol: ipv4
+  vip_ipv4: 192.168.92.201
+  vip_ipv6: fd92::201
+  service_cidr_ipv4: 10.96.0.0/16
+  service_cidr_ipv6: fd00:10:96::/112
+  pod_cidr_ipv4: 172.26.0.0/16
+  pod_cidr_ipv6: fd00:172:26::/64

@@ -3,13 +3,13 @@
   tasks:
   - include_role:
       name: node
-      tasks_from: reset.yml
+      tasks_from: reset-and-delete.yml
 
 - hosts: master
   tasks:
   - include_role:
       name: master
-      tasks_from: reset.yml
+      tasks_from: reset-and-delete.yml
   - include_role:
       name: keepalived
       tasks_from: uninstall.yml

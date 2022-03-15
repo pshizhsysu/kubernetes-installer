@@ -1,3 +1,13 @@
-docker_data_dir: /dcos/data/docker
-harbor: "192.168.2.101:8021"
-pod_cidr: 172.26.0.0/16
+
+# cluster
+kubernetes_major_version: "{{kubernetes_version[0:4]}}"
+service_cidr: "{% if ipv4_ipv6_dual == 'ipv4' %}{{service_cidr_ipv4}}{% elif ipv4_ipv6_dual == 'ipv6' %}{{service_cidr_ipv6}}{% elif control_plane_communication_protocol == 'ipv4' %}{{service_cidr_ipv4}},{{service_cidr_ipv6}}{% else %}{{service_cidr_ipv6}},{{service_cidr_ipv4}}{% endif %}"
+pod_cidr: "{% if ipv4_ipv6_dual == 'ipv4' %}{{pod_cidr_ipv4}}{% elif ipv4_ipv6_dual == 'ipv6' %}{{pod_cidr_ipv6}}{% elif control_plane_communication_protocol == 'ipv4' %}{{pod_cidr_ipv4}},{{pod_cidr_ipv6}}{% else %}{{pod_cidr_ipv6}},{{pod_cidr_ipv4}}{% endif %}"
+node_ip: "{% if ipv4_ipv6_dual != 'dual' %}{{inventory_hostname}}{% elif control_plane_communication_protocol == 'ipv4' %}{{inventory_hostname}},{{ipv6}}{% else %}{{ipv6}},{{inventory_hostname}}{% endif %}"
+node_name: "{% if inventory_hostname.find(':') > 0 %}{{(inventory_hostname | regex_replace(':','-')).split('%')[0]}}{% else %}{{inventory_hostname}}{% endif %}"
+
+# apiserver
+apiserver_advertise_address: "{% if ipv4_ipv6_dual == 'dual' and control_plane_communication_protocol is defined and control_plane_communication_protocol == 'ipv6' %}{{ipv6}}{% else %}{{inventory_hostname}}{% endif %}"
+
+# kube-proxy
+kube_proxy_mode: "iptables"

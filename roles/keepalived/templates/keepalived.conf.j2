@@ -1,0 +1,19 @@
+#jinja2:lstrip_blocks: True
+global_defs {
+   notification_email {
+     acassen@firewall.loc
+     failover@firewall.loc
+     sysadmin@firewall.loc
+   }
+   notification_email_from Alexandre.Cassen@firewall.loc
+   smtp_server localhost
+   smtp_connect_timeout 30
+   router_id LVS_DEVEL
+}
+
+{% if ipv4_ipv6_dual != "ipv6" %}
+include /etc/keepalived/keepalived-ipv4.conf
+{% endif %}
+{% if ipv4_ipv6_dual != "ipv4" %}
+include /etc/keepalived/keepalived-ipv6.conf
+{% endif %}

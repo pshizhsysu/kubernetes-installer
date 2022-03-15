@@ -1,0 +1,20 @@
+- name: <拷贝kubeadm-join-node.yml文件>
+  become: yes
+  template:
+    src: "v{{kubernetes_major_version}}/kubeadm-join-node.yml.j2
+    dest: /etc/kubernetes
+    force: yes
+
+- name: <执行kubeadm join命令以添加节点>
+  become: yes
+  command: kubeadm join --config /etc/kubernetes/kubeadm-join-node.yml
+  
+- name: <拷贝kubeconfig文件到用户目录下>
+  become: yes
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: "/home/{{ansible_user}}/.kube/config"
+    force: yes
+    group: "{{ansible_user}}"
+    owner: "{{ansible_user}}"
+    mode: 0644

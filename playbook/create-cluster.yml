@@ -16,32 +16,39 @@
   - include_role:
       name: keepalived
       tasks_from: install-master.yml
-    when: inventory_hostname == groups['master'][0]
+    when: inventory_hostname == groups.master[0]
   - include_role:
       name: keepalived
       tasks_from: install-backup.yml
-    when: inventory_hostname != groups['master'][0]
+    when: inventory_hostname != groups.master[0]
   - include_role:
       name: master
       tasks_from: init.yml
-    when: inventory_hostname == groups['master'][0]
+    when: inventory_hostname == groups.master[0]
   - include_role:
       name: master
-      tasks_from: register-join-command.yml
-    when: inventory_hostname == groups['master'][0]
+      tasks_from: register-join-vars.yml
+    when: inventory_hostname == groups.master[0]
   - include_role:
       name: master
       tasks_from: join.yml
     vars: 
-      kubeadm_join_master_command: "{{hostvars[groups.master[0].]}}"
-    when: inventory_hostname != groups['master'][0]
+      control_plane_endpoint: "{{hostvars[groups.master[0].control_plane_endpoint]}}"
+      certificate_key: "{{hostvars[groups.master[0].certificate_key]}}"
+      token: "{{hostvars[groups.master[0].token]}}"
+      ca_cert_hash: "{{hostvars[groups.master[0].ca_cert_hash]}}"
+    when: inventory_hostname != groups.master[0]
   - include_role:
       name: plugins
       tasks_from: install.yml
-    when: inventory_hostname == groups['master'][0]
+    when: inventory_hostname == groups.master[0]
   
 - hosts: node
   tasks:
   - include_role:
       name: node
       tasks_from: join.yml
+    vars: 
+      control_plane_endpoint: "{{hostvars[groups.master[0].control_plane_endpoint]}}"
+      token: "{{hostvars[groups.master[0].token]}}"
+      ca_cert_hash: "{{hostvars[groups.master[0].ca_cert_hash]}}"
