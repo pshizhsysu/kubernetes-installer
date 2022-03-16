@@ -1,0 +1,13 @@
+---
+- name: <停止docker>
+  service: 
+    name: docker
+    state: stopped
+    enabled: no
+
+- name: <yum卸载docker>
+  become: yes
+  yum:
+    name: "docker-ce,docker-ce-cli"
+    state: absent
+    disablerepo: "*"

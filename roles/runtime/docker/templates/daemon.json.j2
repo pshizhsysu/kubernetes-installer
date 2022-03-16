@@ -1,10 +1,11 @@
 {
     "storage-driver" : "overlay2",
-    "graph" : "{{ docker_data_dir }}",
-    "insecure-registries" : ["{{ harbor }}"],
+    "data-root" : "{{docker_data_root}}",
     "log-driver": "json-file",
     "log-opts": {
         "max-size": "1g"
-    }
+    },
+    "exec-opts": ["native.cgroupdriver=systemd"],
+    "bridge": "none"
 }
 

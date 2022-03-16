@@ -34,3 +34,7 @@
       fstype: swap
       state: absent  
     
+- name: <获取主机操作系统、CPU架构等信息>
+  setup:
+    gather_subset:
+    - min

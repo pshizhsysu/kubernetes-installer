@@ -1,0 +1,12 @@
+---
+- name: <停止kubelet>
+  service:
+    name: kubelet
+    state: stopped
+    enabled: no
+
+- name: <调用yum模块进行卸载>
+  yum: 
+    name: kubelet,kubectl,kubeadm
+    state: abesent
+    disablerepo: "*"

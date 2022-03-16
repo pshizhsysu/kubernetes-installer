@@ -8,14 +8,15 @@ all:
           ansible_password: root
     node:
       hosts:
-        192.168.92.111:
+        192.168.92.109:
           ansible_port: 22
           ansible_user: root
           ansible_password: root
 vars:
   kubernetes_version: 1.23.3
   runtime: docker
-  runtime_data_root: /data/docker
+  docker_verison: 20.10.12
+  docker_data_root: /data/docker
   ipv4_ipv6_dual: ipv4  # ipv4 ipv6 or dual
   vip_ipv4: 192.168.92.201
   service_cidr_ipv4: 10.96.0.0/16

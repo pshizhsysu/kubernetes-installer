@@ -9,15 +9,16 @@ all:
           ipv6: fd92::108
     scaleup:
       hosts:
-        192.168.92.107:
+        192.168.92.110:
           ansible_port: 22
           ansible_user: root
           ansible_password: root
-          ipv6: fd92::107
+          ipv6: fd92::110
 vars:
   kubernetes_version: 1.23.3
   runtime: docker
-  runtime_data_root: /data/docker
+  docker_verison: 20.10.12
+  docker_data_root: /data/docker
   ipv4_ipv6_dual: dual  # ipv4 ipv6 or dual
   control_plane_communication_protocol: ipv4
   vip_ipv4: 192.168.92.201

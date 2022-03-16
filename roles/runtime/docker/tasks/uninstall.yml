@@ -1,0 +1,6 @@
+---
+- name: <卸载二进制安装的docker>
+  include_tasks: binary/uninstall.yml
+
+- name: <卸载包管理工具安装的docker>
+  include_tasks: "{{ansible_distribution|lower}}/install.yml"

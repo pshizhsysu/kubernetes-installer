@@ -1,0 +1,8 @@
+---
+- name: <使用二进制安装docker>
+  include_tasks: binary/install.yml
+  when: install_by_binary is defined and install_by_binary == "yes"
+
+- name: <使用包管理工具安装docker>
+  include_tasks: "{{ansible_distribution|lower}}/install.yml"
+  when: install_by_binary is not defined or install_by_binary != "yes"

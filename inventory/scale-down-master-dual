@@ -9,8 +9,8 @@ all:
           ipv6: fd92::108
     scaledown:
       hosts:
-        192.168.92.107:
+        192.168.92.110:
           ansible_port: 22
           ansible_user: root
           ansible_password: root
-          ipv6: fd92::107
+          ipv6: fd92::110

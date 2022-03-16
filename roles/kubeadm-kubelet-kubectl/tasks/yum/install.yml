@@ -1,4 +1,0 @@
----
-- name: <安装kubeadm kubelet kubectl><配置kubernetes.repo文件>
-  yum: 
-    
