@@ -20,3 +20,5 @@ spec:
   - name: volume2
     hostPath:
       path: /etc/kubernetes/keepalived/keepalived.conf
+  securityContext:
+    privileged: true

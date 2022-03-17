@@ -43,8 +43,6 @@ evictionHard:
   nodefs.available: 5%
   nodefs.inodesFree: 5%
 healthzBindAddress: "{% if ipv4_ipv6_dual == 'ipv4' %}0.0.0.0{% else %}::{% endif %}"
-healthzPort: 10248
-readOnlyPort: 10255
 
 ---
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
