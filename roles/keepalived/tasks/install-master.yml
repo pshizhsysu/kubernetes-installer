@@ -8,12 +8,8 @@
   - name: <安装keepalived><获取keepalived相关配置信息><保存网卡信息及virtual_router_id>
     set_fact: 
       interface: "{{interface_result.stdout}}"
-      {% if ipv4_ipv6_dual != "ipv6" %}
       virtual_router_id_ipv4: "{{vip_ipv4.split('.')[3]}}"
-      {% endif %}
-      {% if ipv4_ipv6_dual != "ipv4" %}
       virtual_router_id_ipv6: 6
-      {% endif %}
 
 - name: <安装keepalived><创建目录/etc/kubernetes/keepalived>
   become: yes
