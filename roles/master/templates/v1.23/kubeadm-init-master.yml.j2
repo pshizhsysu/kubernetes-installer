@@ -22,9 +22,9 @@ etcd:
     extralArgs:
       listen-metrics-urls: "{% if ipv4_ipv6_dual == 'ipv4' %}http://0.0.0.0:2381{% else %}http://[::]:2381{% endif %}"
 apiServer:
-  certSANs: "{% set cert_sans = ['localhost'] %}{% if vip_ipv4 is defined and vip_ipv4 != '' %}{{ cert_sans.append(vip_ipv4) }}{% endif %}{% if vip_ipv6 is defined and vip_ipv6 != '' %}{{ cert_sans.append(vip_ipv6) }}{% endif %}"
+  certSANs: {% set cert_sans = [] %}{% if vip_ipv4 is defined and vip_ipv4 != '' %}{{ cert_sans.append(vip_ipv4) }}{% endif %}{% if vip_ipv6 is defined and vip_ipv6 != '' %}{{ cert_sans.append(vip_ipv6) }}{% endif %}
   extraArgs:
-    service-cluster-ip-range: "service_cidr"
+    service-cluster-ip-range: "{{service_cidr}}"
     bind-address: "{% if ipv4_ipv6_dual == 'ipv4' %}0.0.0.0{% else %}::{% endif %}"
     secure-port: "6443"
 scheduler:
