@@ -25,6 +25,7 @@
       src: check_apiserver.sh.j2
       dest: /etc/kubernetes/keepalived/check_apiserver.sh
       force: yes
+      mode: 0755
   - name: <安装keepalived><拷贝keepalived-master文件><拷贝keepalived-ipv4-master.conf>
     when: ipv4_ipv6_dual != "ipv6"
     template:

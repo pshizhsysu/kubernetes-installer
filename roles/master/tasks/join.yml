@@ -2,7 +2,7 @@
   become: yes
   template:
     src: "v{{kubernetes_major_version}}/kubeadm-join-master.yml.j2
-    dest: /etc/kubernetes
+    dest: /etc/kubernetes/kubeadm-join-master.yml
     force: yes
 
 - name: <执行kubeadm join命令以添加节点>

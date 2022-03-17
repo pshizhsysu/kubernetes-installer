@@ -2,13 +2,13 @@
 - name: <拷贝kubeadm-init-master.yml配置文件>
   become: yes
   template:
-    src: "{{kubernetes_major_version}}/kubeadm-init-master.yml.j2"
-    dest: /etc/kubernetes
+    src: "v{{kubernetes_major_version}}/kubeadm-init-master.yml.j2"
+    dest: /etc/kubernetes/kubeadm-init-master.yml
     force: yes
 
 - name: <执行kubeadm init命令>
   become: yes
-  command: kubeadm init --config /etc/kubernetes/kubeadm-init.yml
+  command: kubeadm init --config /etc/kubernetes/kubeadm-init-master.yml
 
 - name: <拷贝kubeconfig文件到用户目录下>
   become: yes
