@@ -14,5 +14,5 @@ all:
           ansible_user: root
           ansible_password: root
           ipv6: fd92::109
-vars:
-  ipv4_ipv6_dual: dual  # ipv4 ipv6 or dual
+  vars:
+    ipv4_ipv6_dual: dual  # ipv4 ipv6 or dual
