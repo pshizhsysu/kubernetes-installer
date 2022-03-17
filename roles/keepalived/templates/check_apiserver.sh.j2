@@ -2,7 +2,7 @@
 
 #!/bin/bash
 
-STATUS_CODE=$(curl -I -m 10 -o /dev/null -s -w %{http_code} -X GET https://localhost:{{kube_apiserver_secure_port}}/healthz --insecure)
+STATUS_CODE=$(curl -I -m 10 -o /dev/null -s -w %{http_code} -X GET https://localhost:{{apiserver_secure_port}}/healthz --insecure)
 if test $STATUS_CODE -eq '200'
 then
     exit 0

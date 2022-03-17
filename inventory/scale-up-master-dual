@@ -15,10 +15,6 @@ all:
           ansible_password: root
           ipv6: fd92::110
 vars:
-  kubernetes_version: 1.23.3
-  runtime: docker
-  docker_version: 20.10.12
-  docker_data_root: /data/docker
   ipv4_ipv6_dual: dual  # ipv4 ipv6 or dual
   control_plane_communication_protocol: ipv4
   vip_ipv4: 192.168.92.201
