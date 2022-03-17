@@ -25,3 +25,7 @@
     token: "{{token_result.stdout}}"
     ca_cert_hash: "{{ca_cert_hash_result.stdout}}"
     control_plane_endpoint: "{{control_plane_endpoint_result.stdout}}"
+
+- name: <打印kubeadm join相关变量>
+  debug:
+    msg: "certificate_key: {{certificate_key}} token: {{token}} ca_cert_hash: {{ca_cert_hash}} control_plane_endpoint: {{control_plane_endpoint}}"

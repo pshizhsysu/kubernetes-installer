@@ -8,6 +8,7 @@
     when: inventory_hostname == groups.master[0]
 
 - hosts: node
+  gather_facts: no
   tasks:
   - include_role:
       name: pre-ops

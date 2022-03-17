@@ -16,3 +16,4 @@ all:
           ipv6: fd92::109
   vars:
     ipv4_ipv6_dual: dual  # ipv4 ipv6 or dual
+    control_plane_communication_protocol: ipv4
