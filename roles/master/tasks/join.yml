@@ -9,12 +9,12 @@
   become: yes
   command: kubeadm join --config /etc/kubernetes/kubeadm-join-master.yml
   
-- name: <拷贝kubeconfig文件到用户目录下>
-  become: yes
+- name: <拷贝kubeconfig文件到用户目录下>  
   copy:
     src: /etc/kubernetes/admin.conf
-    dest: "/home/{{ansible_user}}/.kube/config"
+    dest: "~/.kube/config"
     force: yes
+    remote_src: yes
     group: "{{ansible_user}}"
     owner: "{{ansible_user}}"
     mode: 0644
