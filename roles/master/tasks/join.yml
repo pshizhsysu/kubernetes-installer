@@ -9,6 +9,12 @@
   become: yes
   command: kubeadm join --config /etc/kubernetes/kubeadm-join-master.yml
   
+- name: <创建~/.kube目录>
+  file:
+    path: "~/.kube"
+    state: directory
+    mode: 0755
+    
 - name: <拷贝kubeconfig文件到用户目录下>  
   copy:
     src: "/etc/kubernetes/admin.conf"

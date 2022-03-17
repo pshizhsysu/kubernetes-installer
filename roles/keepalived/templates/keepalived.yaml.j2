@@ -4,8 +4,10 @@ metadata:
   name: keepalived-{{node_name}}
   namespace: kube-system
 spec:
+  hostNetwork: true
   containers:
-  - image: osixia/keepalived:2.0.20
+  - name: keepalived
+    image: osixia/keepalived:2.0.20
     volumeMounts:
     - mountPath: /etc/keepalived
       name: volume1

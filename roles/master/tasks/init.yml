@@ -10,6 +10,12 @@
   become: yes
   command: kubeadm init --config /etc/kubernetes/kubeadm-init-master.yml
 
+- name: <创建~/.kube目录>
+  file:
+    path: "~/.kube"
+    state: directory
+    mode: 0755
+
 - name: <拷贝kubeconfig文件到用户目录下>  
   copy:
     src: "/etc/kubernetes/admin.conf"
