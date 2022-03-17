@@ -18,11 +18,11 @@
   - include_role:
       name: keepalived
       tasks_from: install-master.yml
-    when: inventory_hostname == groups.master[0]
+    when: need_to_install_keepalived == "yes" and inventory_hostname == groups.master[0]
   - include_role:
       name: keepalived
       tasks_from: install-backup.yml
-    when: inventory_hostname != groups.master[0]
+    when: need_to_install_keepalived == "yes" and inventory_hostname != groups.master[0]
   - include_role:
       name: master
       tasks_from: init.yml

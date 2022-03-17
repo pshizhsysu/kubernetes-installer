@@ -10,6 +10,9 @@ pod_cidr: "{% if ipv4_ipv6_dual == 'ipv4' %}{{pod_cidr_ipv4}}{% elif ipv4_ipv6_d
 node_ip: "{% if ipv4_ipv6_dual != 'dual' %}{{inventory_hostname}}{% elif control_plane_communication_protocol == 'ipv4' %}{{inventory_hostname}},{{ipv6}}{% else %}{{ipv6}},{{inventory_hostname}}{% endif %}"
 node_name: "{% if inventory_hostname.find(':') > 0 %}{{(inventory_hostname | regex_replace(':','-')).split('%')[0]}}{% else %}{{inventory_hostname}}{% endif %}"
 
+# keepalived
+need_to_install_keepalived: "{% if ipv4_ipv6_dual == 'ipv4' and vip_ipv4 is defined and vip_ipv4 != '' %}yes{% elif ipv4_ipv6_dual == 'ipv6' and vip_ipv6 is defined and vip_ipv6 != '' %}yes{% elif vip_ipv4 is defined and vip_ipv4 != '' and vip_ipv6 is defined and vip_ipv6 != '' %}yes{% else %}no{% endif %}"
+
 # apiserver
 apiserver_advertise_address: "{% if ipv4_ipv6_dual == 'dual' and control_plane_communication_protocol is defined and control_plane_communication_protocol == 'ipv6' %}{{ipv6}}{% else %}{{inventory_hostname}}{% endif %}"
 apiserver_secure_port: "6443"
