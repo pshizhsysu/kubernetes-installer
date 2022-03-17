@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  gather_facts: no
   tasks:
   - include_role:
       name: pre-ops
@@ -12,6 +13,7 @@
       tasks_from: install.yml
 
 - hosts: master
+  gather_facts: no
   tasks:
   - include_role:
       name: keepalived
@@ -44,6 +46,7 @@
     when: inventory_hostname == groups.master[0]
   
 - hosts: node
+  gather_facts: no
   tasks:
   - include_role:
       name: node

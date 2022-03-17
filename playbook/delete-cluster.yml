@@ -1,11 +1,13 @@
 ---
 - hosts: node
+  gather_facts: no
   tasks:
   - include_role:
       name: node
       tasks_from: reset-and-delete.yml
 
 - hosts: master
+  gather_facts: no
   tasks:
   - include_role:
       name: master
@@ -15,6 +17,7 @@
       tasks_from: uninstall.yml
 
 - hosts: all
+  gather_facts: no
   tasks:
   - include_role:
       name: kubeadm-kubelet-kubectl
