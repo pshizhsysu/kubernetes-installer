@@ -1,12 +1,15 @@
 ---
-- name: <拷贝repo文件到/etc/yum.repos.d/>
+- name: <拷贝kubernetes的repo文件到/etc/yum.repos.d/>
   template:
-    src: "centos/{{item}}"
-    dest: /etc/yum.repos.d/
+    src: centos/aliyun-kubernetes.repo.j2
+    dest: /etc/yum.repos.d/aliyun-kubernetes.repo
     force: yes
-    loop:
-    - aliyun-base.repo.j2
-    - aliyun-kubernetes.repo.j2
+
+- name: <拷贝centos的repo文件到/etc/yum.repos.d/>
+  copy:
+    src: centos/aliyun-base.repo
+    dest: /etc/yum.repos.d/aliyun-base.repo
+    force: yes
 
 - name: <调用yum模块进行安装>
   yum: 

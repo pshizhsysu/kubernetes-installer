@@ -1,0 +1,17 @@
+[aliyun-base]
+name=aliyun-base
+baseurl=https://mirrors.aliyun.com/centos/$releasever/os/$basearch/
+gpgcheck=0
+enabled=0
+
+[aliyun-updates]
+name=aliyun-updates
+baseurl=https://mirrors.aliyun.com/centos/$releasever/updates/$basearch/
+gpgcheck=0
+enabled=0
+
+[aliyun-extras]
+name=aliyun-extras
+baseurl=https://mirrors.aliyun.com/centos/$releasever/extras/$basearch/
+gpgcheck=0
+enabled=0
