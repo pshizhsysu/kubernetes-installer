@@ -9,7 +9,7 @@
 - name: <拷贝docker的repo文件到/etc/yum.repos.d/>
   become: yes
   template:
-    src: aliyun-docker.repo.j2
+    src: centos/aliyun-docker.repo.j2
     dest: /etc/yum.repos.d/aliyun-docker.repo
     force: yes
 
