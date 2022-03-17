@@ -1,0 +1,30 @@
+all:
+  children:
+    master:
+      hosts: 
+        192.168.92.108:          
+          ansible_port: 22
+          ansible_user: root
+          ansible_password: root
+          # ipv6: fd92::108       # 双栈的话则放开ipv6地址
+        # 192.168.92.109:
+        #   ansible_port: 22
+        #   ansible_user: root
+        #   ansible_password: root
+        #   # ipv6: fd92::109
+    # node:
+    #   hosts:
+    #     192.168.92.110:          
+    #       ansible_port: 22
+    #       ansible_user: root
+    #       ansible_password: root          
+    #       # ipv6: fd92::110
+  vars:
+    ipv4_ipv6_dual: ipv4  # 双栈K8S还是单栈K8S集群，可选值：ipv4 ipv6 or dual，必填
+    # control_plane_communication_protocol: ipv4    # 双栈的话则需要填写k8s控制组件之间的通信协议，ipv4或ipv6，双栈时必填
+    # vip_ipv4: 192.168.92.201      # 高可用集群(双栈或ipv4)时，需要填写
+    # vip_ipv6: fd92::201           # 高可用集群(双栈或ipv6)时，需要填写
+    service_cidr_ipv4: 10.96.0.0/16
+    # service_cidr_ipv6: fd00:10:96::/112   # ipv6或双栈时，需要填写
+    pod_cidr_ipv4: 172.26.0.0/16
+    # pod_cidr_ipv6: fd00:172:26::/64 # ipv6可双栈时，需要填写

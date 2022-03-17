@@ -6,11 +6,11 @@ all:
           ansible_port: 22
           ansible_user: root
           ansible_password: root
-          ipv6: fd92::108
+          # ipv6: fd92::108
     node:
       hosts:
-        192.168.92.109:
+        192.168.92.110:
           ansible_port: 22
           ansible_user: root
           ansible_password: root
-          ipv6: fd92::109
+          # ipv6: fd92::110

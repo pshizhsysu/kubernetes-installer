@@ -6,15 +6,14 @@ all:
           ansible_port: 22
           ansible_user: root
           ansible_password: root
+          # ipv6: fd92::108
     node:
       hosts:
         192.168.92.109:
           ansible_port: 22
           ansible_user: root
           ansible_password: root
+          # ipv6: fd92::109
   vars:
-    ipv4_ipv6_dual: ipv4  # ipv4 ipv6 or dual
-    service_cidr_ipv4: 10.96.0.0/16
-    pod_cidr_ipv4: 172.26.0.0/16
-  
-  
+    ipv4_ipv6_dual: ipv4
+    # control_plane_communication_protocol: ipv4
