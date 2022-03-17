@@ -22,7 +22,7 @@ all:
   vars:
     kubernetes_version: 1.23.3
     runtime: docker
-    docker_verison: 20.10.12
+    docker_version: 20.10.12
     docker_data_root: /data/docker
     ipv4_ipv6_dual: dual  # ipv4 ipv6 or dual
     control_plane_communication_protocol: ipv4
