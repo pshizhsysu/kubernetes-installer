@@ -1,14 +1,17 @@
 - name: <拷贝kubeadm-join-master.yml文件>
   become: yes
   template:
-    src: "v{{kubernetes_major_version}}/kubeadm-join-master.yml.j2
+    src: "v{{kubernetes_major_version}}/kubeadm-join-master.yml.j2"
     dest: /etc/kubernetes/kubeadm-join-master.yml
     force: yes
 
 - name: <执行kubeadm join命令以添加节点>
   become: yes
   command: kubeadm join --config /etc/kubernetes/kubeadm-join-master.yml
-  
+
+- name: <去掉Master的taint>
+  command: kubectl taint node --all node-role.kubernetes.io/master- --kubeconfig /etc/kubernetes/admin.conf  
+
 - name: <创建~/.kube目录>
   file:
     path: "~/.kube"

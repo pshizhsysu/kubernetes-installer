@@ -10,6 +10,9 @@
   become: yes
   command: kubeadm init --config /etc/kubernetes/kubeadm-init-master.yml
 
+- name: <去掉Master的taint>
+  command: kubectl taint node --all node-role.kubernetes.io/master- --kubeconfig /etc/kubernetes/admin.conf  
+
 - name: <创建~/.kube目录>
   file:
     path: "~/.kube"
