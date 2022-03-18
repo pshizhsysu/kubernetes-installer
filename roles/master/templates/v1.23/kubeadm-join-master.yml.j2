@@ -1,6 +1,7 @@
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
 controlPlane:
+  certificateKey: "{{certificate_key}}"
   localAPIEndpoint:
     advertiseAddress: "{{apiserver_advertise_address}}"
 discovery:
