@@ -10,15 +10,18 @@
   command: kubeadm join --config /etc/kubernetes/kubeadm-join-master.yml
 
 - name: <去掉Master的taint>
-  command: kubectl taint node --all node-role.kubernetes.io/master- --kubeconfig /etc/kubernetes/admin.conf  
+  ignore_errors: yes
+  command: kubectl taint node {{node_name}} node-role.kubernetes.io/master- --kubeconfig /etc/kubernetes/admin.conf  
 
 - name: <创建~/.kube目录>
+  ignore_errors: yes
   file:
     path: "~/.kube"
     state: directory
     mode: 0755
     
-- name: <拷贝kubeconfig文件到用户目录下>  
+- name: <拷贝kubeconfig文件到用户目录下>
+  ignore_errors: yes  
   copy:
     src: "/etc/kubernetes/admin.conf"
     dest: "~/.kube/config"
