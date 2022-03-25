@@ -18,4 +18,5 @@ apiserver_advertise_address: "{% if ipv4_ipv6_dual == 'dual' and control_plane_c
 apiserver_secure_port: "6443"
 
 # kube-proxy
+skip_kube_proxy: "{% if network_plugin is defined and network_plugin == 'cilium' %}true{% else %}false{% endif %}"
 kube_proxy_mode: "iptables"

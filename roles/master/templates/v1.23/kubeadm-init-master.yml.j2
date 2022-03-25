@@ -44,9 +44,11 @@ evictionHard:
   nodefs.inodesFree: 5%
 healthzBindAddress: "{% if ipv4_ipv6_dual == 'ipv4' %}0.0.0.0{% else %}::{% endif %}"
 
+{% if skip_kube_proxy == "false" %}
 ---
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
 bindAddress: "{% if ipv4_ipv6_dual == 'ipv4' %}0.0.0.0{% else %}::{% endif %}"
 clusterCIDR: "{{pod_cidr}}"
 mode: "{{kube_proxy_mode}}"
+{% endif %}

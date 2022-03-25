@@ -28,3 +28,4 @@ all:
     # service_cidr_ipv6: fd00:10:96::/112   # ipv6或双栈时，需要填写
     pod_cidr_ipv4: 172.26.0.0/16
     # pod_cidr_ipv6: fd00:172:26::/64 # ipv6可双栈时，需要填写
+    network_plugin: calico

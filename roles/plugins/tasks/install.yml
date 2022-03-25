@@ -5,6 +5,7 @@
     state: directory
 
 - name: <安装calico插件>
+  when: network_plugin is not defined or network_plugin == "calico"
   block:
   - name: <安装calico插件><拷贝calico.yaml文件>
     template:
