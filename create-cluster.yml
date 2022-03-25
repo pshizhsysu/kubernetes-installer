@@ -52,6 +52,6 @@
       name: node
       tasks_from: join.yml
     vars: 
-      control_plane_endpoint: "{{hostvars[groups.master[0].control_plane_endpoint]}}"
-      token: "{{hostvars[groups.master[0].token]}}"
-      ca_cert_hash: "{{hostvars[groups.master[0].ca_cert_hash]}}"
+      control_plane_endpoint: "{{hostvars[groups.master[0]].control_plane_endpoint}}"
+      token: "{{hostvars[groups.master[0]].token}}"
+      ca_cert_hash: "{{hostvars[groups.master[0]].ca_cert_hash}}"
