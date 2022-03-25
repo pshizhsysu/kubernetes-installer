@@ -7,6 +7,10 @@ nodeRegistration:
   name: "{{node_name}}"
   kubeletExtraArgs:
     node-ip: "{{node_ip}}"
+{% if skip_kube_proxy == "true" %}
+skipPhases:
+- addon/kube-proxy
+{% endif %}
 
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
