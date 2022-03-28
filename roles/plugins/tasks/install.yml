@@ -1,11 +1,13 @@
 ---
 - name: <创建/etc/kubernetes/addons目录>
+  become: yes
   file:
     path: /etc/kubernetes/addons
     state: directory
 
 - name: <安装calico插件>
   when: network_plugin is not defined or network_plugin == "calico"
+  become: yes
   block:
   - name: <安装calico插件><拷贝calico.yaml文件>
     template:
