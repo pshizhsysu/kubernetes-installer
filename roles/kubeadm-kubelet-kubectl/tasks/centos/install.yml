@@ -1,17 +1,20 @@
 ---
 - name: <拷贝kubernetes的repo文件到/etc/yum.repos.d/>
+  become: yes
   template:
     src: centos/aliyun-kubernetes.repo.j2
     dest: /etc/yum.repos.d/aliyun-kubernetes.repo
     force: yes
 
 - name: <拷贝centos的repo文件到/etc/yum.repos.d/>
+  become: yes
   copy:
     src: centos/aliyun-base.repo
     dest: /etc/yum.repos.d/aliyun-base.repo
     force: yes
 
 - name: <调用yum模块进行安装>
+  become: yes
   yum: 
     name: kubelet-{{kubernetes_version}},kubectl-{{kubernetes_version}},kubeadm-{{kubernetes_version}}
     state: present
@@ -19,6 +22,7 @@
     enablerepo: "aliyun-*"
     
 - name: <启动kubelet>
+  become: yes
   service:
     name: kubelet
     state: started
