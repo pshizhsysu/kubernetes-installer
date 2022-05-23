@@ -5,6 +5,7 @@
     src: centos/aliyun-base.repo
     dest: /etc/yum.repos.d/aliyun-base.repo
     force: yes
+    mode: 0644
 
 - name: <拷贝docker的repo文件到/etc/yum.repos.d/>
   become: yes
@@ -12,6 +13,7 @@
     src: centos/aliyun-docker.repo.j2
     dest: /etc/yum.repos.d/aliyun-docker.repo
     force: yes
+    mode: 0644
 
 - name: <yum安装docker>
   become: yes
@@ -34,6 +36,7 @@
     src: daemon.json.j2
     dest: /etc/docker/daemon.json
     force: yes
+    mode: 0644
 
 - name: <启动docker>
   service: 

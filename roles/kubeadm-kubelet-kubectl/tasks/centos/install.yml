@@ -5,6 +5,7 @@
     src: centos/aliyun-kubernetes.repo.j2
     dest: /etc/yum.repos.d/aliyun-kubernetes.repo
     force: yes
+    mode: 0644
 
 - name: <拷贝centos的repo文件到/etc/yum.repos.d/>
   become: yes
@@ -12,6 +13,7 @@
     src: centos/aliyun-base.repo
     dest: /etc/yum.repos.d/aliyun-base.repo
     force: yes
+    mode: 0644
 
 - name: <调用yum模块进行安装>
   become: yes

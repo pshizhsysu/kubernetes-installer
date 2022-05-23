@@ -4,10 +4,19 @@
     src: "v{{kubernetes_major_version}}/kubeadm-join-master.yml.j2"
     dest: /etc/kubernetes/kubeadm-join-master.yml
     force: yes
+    mode: 0644
 
 - name: <执行kubeadm join命令以添加节点>
   become: yes
   command: kubeadm join --config /etc/kubernetes/kubeadm-join-master.yml
+
+- name: <chmod of /etc/kubernetes/admin.conf>
+  ignore_errors: yes
+  become: yes
+  file:
+    path: /etc/kubernetes/admin.conf
+    state: file
+    mode: 0644
 
 - name: <去掉Master的taint>
   ignore_errors: yes

@@ -4,6 +4,7 @@
   file:
     path: /etc/kubernetes/addons
     state: directory
+    mode: 0755
 
 - name: <安装calico插件>
   when: network_plugin is not defined or network_plugin == "calico"
@@ -14,6 +15,7 @@
       src: "v{{kubernetes_major_version}}/calico.yaml.j2"
       dest: /etc/kubernetes/addons/calico.yaml
       force: yes
+      mode: 0644
   - name: <安装calico插件><执行kubectl apply命令>
     command: kubectl apply -f /etc/kubernetes/addons/calico.yaml --kubeconfig /etc/kubernetes/admin.conf
   

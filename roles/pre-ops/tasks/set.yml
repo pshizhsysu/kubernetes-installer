@@ -35,6 +35,7 @@
       state: absent  
     
 - name: <获取主机操作系统、CPU架构等信息>
+  become: yes
   setup:
     gather_subset:
     - min
